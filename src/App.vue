@@ -1,21 +1,43 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import { 
+  isLoading, httpError,
+  searchInput,
+  filteredCategoriesData, 
+  initializeStore,
+} from './state'
+
+onMounted(() => {
+  initializeStore()
+})
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+<div class="main-container">
+  <div v-if="isLoading">
+    Fetching Data
+  </div>
+  <div v-else>
+    <div v-for="cat of filteredCategoriesData" class="category-card">
+      {{cat}}
+    </div>
+  </div>
+</div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.main-container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+.category-card {
+  box-sizing: border-box;
+  border: 1px solid salmon;
+  height: 10vh;
+  margin: 3px 0;
+  border-radius: 5px;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

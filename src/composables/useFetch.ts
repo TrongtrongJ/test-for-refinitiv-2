@@ -1,6 +1,7 @@
 import { ref, toRefs, reactive, onMounted } from 'vue';
 
 interface IFetchDataParams {
+  url: string
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: Record<string, any>
   contentType?: 'application/json'
@@ -9,9 +10,7 @@ interface IFetchDataParams {
   token?: string | null
 }
 
-type TApiResponseData = {
-  
-}
+type TApiResponseData = string[]
 
 export function useFetch() {
 
@@ -23,14 +22,15 @@ export function useFetch() {
   })
 
   const fetchData = async (
-    { method = 'GET', body, token, contentType = 'application/json' }: IFetchDataParams
+    { url, method = 'GET', body, token, contentType = 'application/json' }: IFetchDataParams
   ): Promise<TApiResponseData | null> => {
-    const url = 'https://api.publicapis.org/categories'
     const currentAbortCtrl = new AbortController()
 
     const options: RequestInit = {
       headers: {
         'Content-Type': contentType,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Request-Method': '*',
         ...(token && {'Authorization': `bearer ${token}`}),
       },
       method,
