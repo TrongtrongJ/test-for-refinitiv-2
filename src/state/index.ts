@@ -30,6 +30,6 @@ export async function initializeStore() {
 export const searchInput = ref<string>('')
 
 export const filteredCategoriesData = computed(() => 
-  categoriesData.value.filter(c => c.includes(searchInput.value))
+  categoriesData.value.filter(c => c.toLowerCase().includes(searchInput.value.toLowerCase()))
 )
 

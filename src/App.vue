@@ -18,8 +18,11 @@ onMounted(() => {
     Fetching Data
   </div>
   <div v-else>
-    <div v-for="cat of filteredCategoriesData" class="category-card">
-      {{cat}}
+    <div>
+      <div><input type="text" v-model="searchInput"></div>
+      <div v-for="cat of filteredCategoriesData" class="category-card">
+        {{cat}}
+      </div>
     </div>
   </div>
 </div>
